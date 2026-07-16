@@ -1,0 +1,90 @@
+@import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-glow: var(--glow);
+  --color-card: var(--card);
+}
+
+:root {
+  --background: #09090b;
+  --foreground: #f8fafc;
+  --primary: #7c3aed;
+  --accent: #06b6d4;
+  --secondary: #a855f7;
+  --muted: #94a3b8;
+  --glow: rgba(124, 58, 237, 0.4);
+  --card: #111827;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #f8fafc;
+  --primary: #7c3aed;
+  --accent: #06b6d4;
+  --secondary: #a855f7;
+  --muted: #94a3b8;
+  --glow: rgba(124, 58, 237, 0.4);
+  --card: #111827;
+}
+
+/* Force dark mode colors always since the user wants Option 1 as the theme */
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+/* Animated Mesh Gradient Background */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: 
+    radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.1), transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.1), transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(168, 85, 247, 0.1), transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+  animation: meshGlow 15s ease-in-out infinite alternate;
+}
+
+@keyframes meshGlow {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@utility glass-panel {
+  background: rgba(17, 24, 39, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+@utility premium-card {
+  background: var(--card);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  &:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px var(--glow);
+    border-color: rgba(124, 58, 237, 0.3);
+  }
+}
+
+@utility text-gradient {
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
